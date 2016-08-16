@@ -1,12 +1,12 @@
 
-package com.roberterrera.gifsearch.model;
+package com.roberterrera.gifsearch.model.trending;
 
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("org.jsonschema2pojo")
-public class FixedHeightSmallStill {
+public class Downsized {
 
     @SerializedName("url")
     @Expose
@@ -17,6 +17,9 @@ public class FixedHeightSmallStill {
     @SerializedName("height")
     @Expose
     private String height;
+    @SerializedName("size")
+    @Expose
+    private String size;
 
     /**
      * 
@@ -70,6 +73,24 @@ public class FixedHeightSmallStill {
      */
     public void setHeight(String height) {
         this.height = height;
+    }
+
+    /**
+     * 
+     * @return
+     *     The size
+     */
+    public String getSize() {
+        return size;
+    }
+
+    /**
+     * 
+     * @param size
+     *     The size
+     */
+    public void setSize(String size) {
+        this.size = size;
     }
 
 }

@@ -1,12 +1,12 @@
 
-package com.roberterrera.gifsearch.model;
+package com.roberterrera.gifsearch.model.trending;
 
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("org.jsonschema2pojo")
-public class Downsized {
+public class FixedWidthDownsampled {
 
     @SerializedName("url")
     @Expose
@@ -20,6 +20,12 @@ public class Downsized {
     @SerializedName("size")
     @Expose
     private String size;
+    @SerializedName("webp")
+    @Expose
+    private String webp;
+    @SerializedName("webp_size")
+    @Expose
+    private String webpSize;
 
     /**
      * 
@@ -91,6 +97,42 @@ public class Downsized {
      */
     public void setSize(String size) {
         this.size = size;
+    }
+
+    /**
+     * 
+     * @return
+     *     The webp
+     */
+    public String getWebp() {
+        return webp;
+    }
+
+    /**
+     * 
+     * @param webp
+     *     The webp
+     */
+    public void setWebp(String webp) {
+        this.webp = webp;
+    }
+
+    /**
+     * 
+     * @return
+     *     The webpSize
+     */
+    public String getWebpSize() {
+        return webpSize;
+    }
+
+    /**
+     * 
+     * @param webpSize
+     *     The webp_size
+     */
+    public void setWebpSize(String webpSize) {
+        this.webpSize = webpSize;
     }
 
 }

@@ -1,13 +1,12 @@
 
-package com.roberterrera.gifsearch.model;
+package com.roberterrera.gifsearch.model.trending;
 
+import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import javax.annotation.Generated;
-
 @Generated("org.jsonschema2pojo")
-public class FixedWidthSmall {
+public class Original {
 
     @SerializedName("url")
     @Expose
@@ -21,6 +20,9 @@ public class FixedWidthSmall {
     @SerializedName("size")
     @Expose
     private String size;
+    @SerializedName("frames")
+    @Expose
+    private String frames;
     @SerializedName("mp4")
     @Expose
     private String mp4;
@@ -104,6 +106,24 @@ public class FixedWidthSmall {
      */
     public void setSize(String size) {
         this.size = size;
+    }
+
+    /**
+     * 
+     * @return
+     *     The frames
+     */
+    public String getFrames() {
+        return frames;
+    }
+
+    /**
+     * 
+     * @param frames
+     *     The frames
+     */
+    public void setFrames(String frames) {
+        this.frames = frames;
     }
 
     /**

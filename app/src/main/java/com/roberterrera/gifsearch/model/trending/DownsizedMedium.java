@@ -1,12 +1,12 @@
 
-package com.roberterrera.gifsearch.model;
+package com.roberterrera.gifsearch.model.trending;
 
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("org.jsonschema2pojo")
-public class DownsizedLarge {
+public class DownsizedMedium {
 
     @SerializedName("url")
     @Expose

@@ -1,12 +1,13 @@
 
-package com.roberterrera.gifsearch.model;
+package com.roberterrera.gifsearch.model.trending;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import javax.annotation.Generated;
+
 @Generated("org.jsonschema2pojo")
-public class FixedHeightDownsampled {
+public class FixedWidthSmall {
 
     @SerializedName("url")
     @Expose
@@ -20,6 +21,12 @@ public class FixedHeightDownsampled {
     @SerializedName("size")
     @Expose
     private String size;
+    @SerializedName("mp4")
+    @Expose
+    private String mp4;
+    @SerializedName("mp4_size")
+    @Expose
+    private String mp4Size;
     @SerializedName("webp")
     @Expose
     private String webp;
@@ -97,6 +104,42 @@ public class FixedHeightDownsampled {
      */
     public void setSize(String size) {
         this.size = size;
+    }
+
+    /**
+     * 
+     * @return
+     *     The mp4
+     */
+    public String getMp4() {
+        return mp4;
+    }
+
+    /**
+     * 
+     * @param mp4
+     *     The mp4
+     */
+    public void setMp4(String mp4) {
+        this.mp4 = mp4;
+    }
+
+    /**
+     * 
+     * @return
+     *     The mp4Size
+     */
+    public String getMp4Size() {
+        return mp4Size;
+    }
+
+    /**
+     * 
+     * @param mp4Size
+     *     The mp4_size
+     */
+    public void setMp4Size(String mp4Size) {
+        this.mp4Size = mp4Size;
     }
 
     /**

@@ -1,5 +1,5 @@
 
-package com.roberterrera.gifsearch.model;
+package com.roberterrera.gifsearch.model.trending;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
