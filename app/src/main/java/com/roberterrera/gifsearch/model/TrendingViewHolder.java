@@ -1,25 +1,28 @@
 package com.roberterrera.gifsearch.model;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.roberterrera.gifsearch.databinding.ListItemTrendingBinding;
+import com.roberterrera.gifsearch.R;
 
 /**
  * Created by Rob on 8/16/16.
  */
 public class TrendingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-    private final ListItemTrendingBinding mBinding;
-    private ItemClickListener itemClickListener;
     public ImageView gifStill;
 
-    public TrendingViewHolder(ListItemTrendingBinding binding) {
-        super(binding.getRoot());
-        mBinding = binding;
+    private Context context;
+    private ItemClickListener itemClickListener;
 
-        gifStill = mBinding.imageViewFixedwidthGif;
+    public TrendingViewHolder(View itemView) {
+        super(itemView);
+
+        gifStill = (ImageView) itemView.findViewById(R.id.imageView_fixedwidth_gif);
+
+        context = itemView.getContext();
         itemView.setOnClickListener(this);
     }
 

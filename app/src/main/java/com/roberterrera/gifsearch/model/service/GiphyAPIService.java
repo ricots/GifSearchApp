@@ -11,7 +11,7 @@ import retrofit2.http.GET;
 
 public interface GiphyAPIService {
     /* Trending: returns a max of 25 results */
-    /* Because we are using the public API key it can go right in here*/
+    /* Because we are using the public API key it can go right in here,*/
     @GET("trending?rating=pg&fmt=json&api_key=dc6zaTOxFJmzC")
     Call<TrendingResponse> getTrending();
 }
