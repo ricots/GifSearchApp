@@ -61,7 +61,7 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingViewHolder> {
             @Override
             public void onItemClick(View v, int pos) {
                 /* Open the URL of the image */
-                String website = trendingList.get(pos).getUrl();
+                String website = trendingImagesList.get(pos).getDownsized().getUrl();
                 Uri webpage = Uri.parse(website);
                 Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
                 if (intent.resolveActivity(context.getPackageManager()) != null) {
