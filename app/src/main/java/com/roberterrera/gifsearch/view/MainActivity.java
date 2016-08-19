@@ -119,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_home:
-                GetTrendingTask getTrendingTask = new GetTrendingTask();
-                getTrendingTask.execute();
+                recyclerView.swapAdapter(mTrendingAdapter, false);
+
                 return true;
 
             default:
@@ -135,13 +135,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        GetTrendingTask getTrendingTask = new GetTrendingTask();
-        getTrendingTask.execute();
         super.onBackPressed();
     }
 
     class GetTrendingTask extends AsyncTask<Void, Void, Void> {
-
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -159,8 +156,6 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             progressBar.setVisibility(View.GONE);
-
-            setUpTrendingRecyclerView(trendingListImages, mTrendingAdapter);
         }
     }
 
@@ -184,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             progressBar.setVisibility(View.GONE);
 
-//            setUpSearchRecyclerView(searchResultsImages, searchAdapter);
         }
     }
 
@@ -212,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<TrendingResponse> call, Throwable t) {
-                Log.e("ONFAILURE", "API call failed.");
+                Log.e("ONFAILURE", "Trending API call failed.");
                 t.printStackTrace();
             }
         });
@@ -235,36 +229,14 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 mSearchAdapter = new SearchAdapter(searchResultsImages, getApplicationContext());
-                recyclerView.setAdapter(mSearchAdapter);
+                recyclerView.swapAdapter(mSearchAdapter, false);
             }
 
             @Override
             public void onFailure(Call<SearchResponse> call, Throwable t) {
-                Log.e("ONFAILURE", "API call failed.");
+                Log.e("ONFAILURE", "Search API call failed.");
                 t.printStackTrace();
             }
         });
-    }
-
-    public void setUpTrendingRecyclerView(List<Images> list, TrendingAdapter adapter) {
-
-        if (list != null) {
-            if (recyclerView != null) {
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(
-                        2, StaggeredGridLayoutManager.VERTICAL));
-            }
-        }
-    }
-
-    public void setUpSearchRecyclerView(List<Images> list, SearchAdapter adapter) {
-
-        if (list != null) {
-            if (recyclerView != null) {
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(
-                        2, StaggeredGridLayoutManager.VERTICAL));
-            }
-        }
     }
 }

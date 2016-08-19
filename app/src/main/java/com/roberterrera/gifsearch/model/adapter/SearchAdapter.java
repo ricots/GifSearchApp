@@ -47,7 +47,7 @@ public class SearchAdapter extends RecyclerView.Adapter<ViewHolder> {
                     .load(imageUrl)
                     .asGif()
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(android.R.drawable.stat_notify_error)
+                    .placeholder(R.drawable.ic_burst_mode)
                     .into(holder.gifStill);
 
         } catch (NullPointerException e){
