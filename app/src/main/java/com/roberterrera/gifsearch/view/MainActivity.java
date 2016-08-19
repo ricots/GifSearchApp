@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     public RecyclerView recyclerView;
+    public TrendingAdapter mTrendingAdapter;
+    public SearchAdapter mSearchAdapter;
 
 
     @Override
@@ -52,15 +54,22 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Trending Gifs (powered by Giphy)");
 
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview_trending);
 
         trendingListImages = new ArrayList<>();
         trendingList = new ArrayList<>();
+        searchResults = new ArrayList<>();
+        searchResultsImages = new ArrayList<>();
+
+        mTrendingAdapter = new TrendingAdapter(trendingListImages, MainActivity.this);
+        mSearchAdapter = new SearchAdapter(searchResultsImages, MainActivity.this);
+
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(
+                2, StaggeredGridLayoutManager.VERTICAL));
 
         GetTrendingTask getTrendingTask = new GetTrendingTask();
         getTrendingTask.execute();
 
-        searchResults = new ArrayList<>();
-        searchResultsImages = new ArrayList<>();
         handleIntent(getIntent());
     }
 
@@ -109,6 +118,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_search:
                 return true;
 
+            case R.id.action_home:
+                GetTrendingTask getTrendingTask = new GetTrendingTask();
+                getTrendingTask.execute();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -128,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
 
     class GetTrendingTask extends AsyncTask<Void, Void, Void> {
 
-        TrendingAdapter mTrendingAdapter = new TrendingAdapter(trendingListImages, MainActivity.this);
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -153,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
 
     class GetSearchResultsTask extends AsyncTask<Void, Void, Void> {
 
-        SearchAdapter searchAdapter = new SearchAdapter(searchResultsImages, MainActivity.this);
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -172,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             progressBar.setVisibility(View.GONE);
 
-            setUpSearchRecyclerView(searchResultsImages, searchAdapter);
+//            setUpSearchRecyclerView(searchResultsImages, searchAdapter);
         }
     }
 
@@ -194,6 +206,8 @@ public class MainActivity extends AppCompatActivity {
                 } catch (NoSuchMethodError e) {
                     e.printStackTrace();
                 }
+                mTrendingAdapter = new TrendingAdapter(trendingListImages, getApplicationContext());
+                recyclerView.setAdapter(mTrendingAdapter);
             }
 
             @Override
@@ -219,8 +233,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } catch (NoSuchMethodError e) {
                     e.printStackTrace();
-                } Log.d("SEARCH", "Search results size: " + String.valueOf(searchResultsImages.size()));
-
+                }
+                mSearchAdapter = new SearchAdapter(searchResultsImages, getApplicationContext());
+                recyclerView.setAdapter(mSearchAdapter);
             }
 
             @Override
@@ -232,7 +247,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setUpTrendingRecyclerView(List<Images> list, TrendingAdapter adapter) {
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview_trending);
 
         if (list != null) {
             if (recyclerView != null) {
@@ -244,7 +258,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setUpSearchRecyclerView(List<Images> list, SearchAdapter adapter) {
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview_trending);
 
         if (list != null) {
             if (recyclerView != null) {
@@ -255,5 +268,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-
-
