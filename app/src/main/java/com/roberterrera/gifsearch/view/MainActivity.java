@@ -23,7 +23,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     public List<Images> trendingListImages;
-    private TrendingAdapter mTrendingAdapter;
+    public List<Datum> trendingList;
     private RecyclerView recyclerView;
 
     @Override
@@ -33,9 +33,12 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Trending Gifs (powered by Giphy)");
 
         trendingListImages = new ArrayList<>();
+        trendingList = new ArrayList<>();
+        getTrendingGifs();
 
-        mTrendingAdapter = new TrendingAdapter(trendingListImages, MainActivity.this);
+        TrendingAdapter mTrendingAdapter = new TrendingAdapter(trendingListImages, trendingList, MainActivity.this);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview_trending);
+        setUpMainRecyclerView(trendingListImages, mTrendingAdapter);
     }
 
     public void setUpMainRecyclerView(List<Images> list, TrendingAdapter adapter) {
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             if (recyclerView != null) {
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager(
-                        3,StaggeredGridLayoutManager.VERTICAL));
+                        2,StaggeredGridLayoutManager.VERTICAL));
             } else {
                 Log.e("RECYCLERVIEW", "Cannot display items.");
             }
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) try {
                     TrendingResponse responseBody = response.body();
-                    List<Datum> trendingList = responseBody.getData();
+                    trendingList = responseBody.getData();
                     for (int j = 0; j < trendingList.size(); j++) {
 
                         Images image = trendingList.get(j).getImages();
@@ -81,11 +84,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getTrendingGifs();
-        setUpMainRecyclerView(trendingListImages, mTrendingAdapter);
-    }
 }
 
