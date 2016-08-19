@@ -1,5 +1,6 @@
 package com.roberterrera.gifsearch.model.service;
 
+import com.roberterrera.gifsearch.R;
 import com.roberterrera.gifsearch.model.giphyapi.response.SearchResponse;
 import com.roberterrera.gifsearch.model.giphyapi.response.TrendingResponse;
 
@@ -12,11 +13,10 @@ import retrofit2.http.Query;
  */
 
 public interface GiphyAPIService {
-    /* Trending: returns a max of 25 results */
     /* Because we are using the public API key it can go right in here,*/
-    @GET("trending?fmt=json&rating=pg&api_key=dc6zaTOxFJmzC")
-    Call<TrendingResponse> getTrending();
+    @GET("trending?fmt=json&rating=pg")
+    Call<TrendingResponse> getTrending(@Query("api_key") String giphyKey);
 
-    @GET("search?fmt=json&rating=pg&api_key=dc6zaTOxFJmzC&")
-    Call<SearchResponse> searchRequest(@Query("q") String query);
+    @GET("search?fmt=json&rating=pg")
+    Call<SearchResponse> searchRequest(@Query("q") String query, @Query("api_key") String giphyKey);
 }

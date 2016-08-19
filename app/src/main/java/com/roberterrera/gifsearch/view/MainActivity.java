@@ -35,16 +35,18 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    public String query;
+    private String query;
+    private String giphyKey;
+
     public List<Datum> trendingList;
     public List<Datum> searchResults;
     public List<Images> trendingListImages;
     public List<Images> searchResultsImages;
 
     private ProgressBar progressBar;
-    public RecyclerView recyclerView;
-    public TrendingAdapter mTrendingAdapter;
-    public SearchAdapter mSearchAdapter;
+    private  RecyclerView recyclerView;
+    private  TrendingAdapter mTrendingAdapter;
+    private SearchAdapter mSearchAdapter;
 
 
     @Override
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview_trending);
+
+        giphyKey = getResources().getString(R.string.giphykey);
 
         trendingListImages = new ArrayList<>();
         trendingList = new ArrayList<>();
@@ -183,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getTrendingGifs() {
-        GiphyFactory.create().getTrending().enqueue(new Callback<TrendingResponse>() {
+        GiphyFactory.create().getTrending(giphyKey).enqueue(new Callback<TrendingResponse>() {
             @Override
             public void onResponse(Call<TrendingResponse> call, Response<TrendingResponse> response) {
 
@@ -213,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void search(String query) {
-        GiphyFactory.create().searchRequest(query).enqueue(new Callback<SearchResponse>() {
+        GiphyFactory.create().searchRequest(query, giphyKey).enqueue(new Callback<SearchResponse>() {
             @Override
             public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
 
