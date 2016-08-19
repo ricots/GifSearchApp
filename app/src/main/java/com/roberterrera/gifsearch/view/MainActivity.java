@@ -35,8 +35,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String query;
-    private String giphyKey;
+    private String query, giphyKey;
 
     public List<Datum> trendingList;
     public List<Datum> searchResults;
@@ -75,6 +74,50 @@ public class MainActivity extends AppCompatActivity {
         getTrendingTask.execute();
 
         handleIntent(getIntent());
+    }
+
+    class GetTrendingTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            getTrendingGifs();
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    class GetSearchResultsTask extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            search(query);
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progressBar.setVisibility(View.GONE);
+
+        }
     }
 
     @Override
@@ -124,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_home:
                 recyclerView.swapAdapter(mTrendingAdapter, false);
+                recyclerView.scrollToPosition(0);
 
                 return true;
 
@@ -140,50 +184,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-    }
-
-    class GetTrendingTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            getTrendingGifs();
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            progressBar.setVisibility(View.GONE);
-        }
-    }
-
-    class GetSearchResultsTask extends AsyncTask<Void, Void, Void> {
-
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            search(query);
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            progressBar.setVisibility(View.GONE);
-
-        }
     }
 
     public void getTrendingGifs() {
@@ -220,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
         GiphyFactory.create().searchRequest(query, giphyKey).enqueue(new Callback<SearchResponse>() {
             @Override
             public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
+                searchResultsImages.clear();
 
                 if (response.isSuccessful()) try {
                     SearchResponse responseBody = response.body();

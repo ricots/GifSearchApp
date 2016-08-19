@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,18 +52,22 @@ public class SearchAdapter extends RecyclerView.Adapter<ViewHolder> {
                     .into(holder.gifStill);
 
         } catch (NullPointerException e){
-            e.printStackTrace();
+            Log.e("ONBINDVIEWHOLDER", e.getMessage());
         }
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
                 /* Open the URL of the image */
-                String website = searchResultsImages.get(pos).getFixedWidth().getUrl();
-                Uri webpage = Uri.parse(website);
-                Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
-                if (intent.resolveActivity(context.getPackageManager()) != null) {
-                    context.startActivity(intent);
+                try {
+                    String website = searchResultsImages.get(pos).getFixedWidth().getUrl();
+                    Uri webpage = Uri.parse(website);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                    if (intent.resolveActivity(context.getPackageManager()) != null) {
+                        context.startActivity(intent);
+                    }
+                } catch (NullPointerException e) {
+                    Log.e("ONITEMCLICK", e.getMessage());
                 }
             }
         });
