@@ -60,7 +60,7 @@ public class SearchAdapter extends RecyclerView.Adapter<ViewHolder> {
             public void onItemClick(View v, int pos) {
                 /* Open the URL of the image */
                 try {
-                    String website = searchResultsImages.get(pos).getFixedWidth().getUrl();
+                    String website = searchResultsImages.get(pos).getOriginal().getUrl();
                     Uri webpage = Uri.parse(website);
                     Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
                     if (intent.resolveActivity(context.getPackageManager()) != null) {
