@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--This is the public debug key from the Giphy API documentation-->
+    <string name="giphykey">dc6zaTOxFJmzC</string>
+</resources>
