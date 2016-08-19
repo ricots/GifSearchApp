@@ -9,7 +9,7 @@ Tapping on a gif opens the full size image in the user's default browser, for a 
 ### To set up and run the project:
 1. Click on the "clone" button above and copy the URL.
 2. Open a terminal window, navigate to the folder you want to put the project in, and paste in the URL with the git clone command:
-> git clone https://github.com/roberrera/GifSearchApp.git
+ _git clone https://github.com/roberrera/GifSearchApp.git_
 3. The public Giphy key is located in the xml folder under giphykey.xml. Please replace this key with your production key if you decide to publicly release your version of the app.
 
 ![](https://github.com/roberrera/GifSearchApp/blob/master/Screenshots-Videos/device-2016-08-19-191503.png)![](https://github.com/roberrera/GifSearchApp/blob/master/Screenshots-Videos/device-2016-08-19-191600.png)![](https://github.com/roberrera/GifSearchApp/blob/master/Screenshots-Videos/device-2016-08-19-191647.png)
