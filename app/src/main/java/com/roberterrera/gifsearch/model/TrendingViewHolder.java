@@ -14,7 +14,7 @@ public class TrendingViewHolder extends RecyclerView.ViewHolder implements View.
 
     public ImageView gifStill;
 
-    private Context context;
+    public Context context;
     private ItemClickListener itemClickListener;
 
     public TrendingViewHolder(View itemView) {

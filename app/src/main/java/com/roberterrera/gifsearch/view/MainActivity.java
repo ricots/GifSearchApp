@@ -2,8 +2,8 @@ package com.roberterrera.gifsearch.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 
 import com.roberterrera.gifsearch.R;
@@ -23,7 +23,8 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     public List<Images> trendingListImages;
-    public TrendingAdapter mTrendingAdapter;
+    private TrendingAdapter mTrendingAdapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,29 +32,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("Trending Gifs (powered by Giphy)");
 
-        getTrendingGifs();
+        trendingListImages = new ArrayList<>();
 
         mTrendingAdapter = new TrendingAdapter(trendingListImages, MainActivity.this);
-        setUpMainRecyclerView(trendingListImages, mTrendingAdapter);
-
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview_trending);
     }
 
-    public void setUpMainRecyclerView(List<Images> trendingListImages, TrendingAdapter adapter) {
+    public void setUpMainRecyclerView(List<Images> list, TrendingAdapter adapter) {
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview_trending);
-//        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
-
-        if (trendingListImages != null) {
-            Log.d("RECYCLERVIEW", "tempImages size: "+trendingListImages.size());
+        if (list != null) {
 
             if (recyclerView != null) {
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-                recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(
+                        3,StaggeredGridLayoutManager.VERTICAL));
             } else {
-                Log.d("RECYCLERVIEW", "No items to display.");
+                Log.e("RECYCLERVIEW", "Cannot display items.");
             }
-        }
+        } Log.e("RECYCLERVIEW", "List is null.");
+
     }
 
     public void getTrendingGifs() {
@@ -61,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<TrendingResponse> call, Response<TrendingResponse> response) {
 
-                trendingListImages = new ArrayList<>();
 
                 if (response.isSuccessful()) try {
                     TrendingResponse responseBody = response.body();
@@ -71,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                         Images image = trendingList.get(j).getImages();
                         trendingListImages.add(image);
                     }
+
                 } catch (NoSuchMethodError e) {
                     e.printStackTrace();
                 }

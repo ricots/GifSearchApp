@@ -2,6 +2,7 @@ package com.roberterrera.gifsearch.model;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,21 +20,18 @@ import java.util.List;
 public class TrendingAdapter extends RecyclerView.Adapter<TrendingViewHolder> {
 
     private final List<Images> trendingImagesList;
-//    private final List<Datum> trendingList;
     private String imageUrl;
 
     private Context context;
 
     public TrendingAdapter(List<Images> trendingImagesList, Context context){
-//        this.trendingList = trendingList;
         this.trendingImagesList = trendingImagesList;
         this.context = context;
     }
-
     @Override
     public TrendingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater
-                .from(parent.getContext())
+                .from(context)
                 .inflate(R.layout.list_item_trending, parent, false);
 
         return new TrendingViewHolder(view);
@@ -43,9 +41,9 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingViewHolder> {
     public void onBindViewHolder(TrendingViewHolder holder, int position) {
 
         try {
-            imageUrl = trendingImagesList.get(position).getFixedWidthStill().getUrl();
+            imageUrl = trendingImagesList.get(position).getDownsizedLarge().getUrl();
 
-            Picasso.with(holder.gifStill.getContext())
+            Picasso.with(context)
                     .load(imageUrl)
                     .placeholder(android.R.drawable.stat_notify_error)
                     .into(holder.gifStill);
@@ -65,6 +63,8 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingViewHolder> {
 
     @Override
     public int getItemCount() {
+        Log.d("GETCOUNTITEM", "tempImages size: "+trendingImagesList.size());
         return trendingImagesList.size();
+
     }
 }
