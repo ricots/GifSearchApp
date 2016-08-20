@@ -3,4 +3,5 @@
     <string name="searchGifs">Search gifs</string>
     <string name="search">Search</string>
     <string name="home">Home</string>
+    <string name="noConnection">Cannot connect to the internet :(</string>
 </resources>
