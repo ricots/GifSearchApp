@@ -5,6 +5,7 @@ import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.roberterrera.gifsearch.R;
 import com.roberterrera.gifsearch.model.adapter.SearchAdapter;
@@ -71,8 +73,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(
                 2, StaggeredGridLayoutManager.VERTICAL));
 
-        GetTrendingTask getTrendingTask = new GetTrendingTask();
-        getTrendingTask.execute();
+
+        if (checkInternetConnection()) {
+            GetTrendingTask getTrendingTask = new GetTrendingTask();
+            getTrendingTask.execute();
+        } else
+            Toast.makeText(MainActivity.this, R.string.noConnection, Toast.LENGTH_SHORT).show();
 
         handleIntent(getIntent());
     }
@@ -153,8 +159,10 @@ public class MainActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             query = intent.getStringExtra(SearchManager.QUERY);
 
-            GetSearchResultsTask getSearchResultsTask = new GetSearchResultsTask();
-            getSearchResultsTask.execute();
+            if (checkInternetConnection()) {
+                GetSearchResultsTask getSearchResultsTask = new GetSearchResultsTask();
+                getSearchResultsTask.execute();
+            } else Toast.makeText(MainActivity.this, R.string.noConnection, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -167,9 +175,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_home:
-                recyclerView.swapAdapter(mTrendingAdapter, false);
-                recyclerView.scrollToPosition(0);
-
+                if (checkInternetConnection()) {
+                    recyclerView.swapAdapter(mTrendingAdapter, false);
+                    recyclerView.scrollToPosition(0);
+                } else Toast.makeText(MainActivity.this, R.string.noConnection, Toast.LENGTH_SHORT).show();
                 return true;
 
             default:
@@ -180,6 +189,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+
+    public boolean checkInternetConnection() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return connectivityManager.getActiveNetworkInfo() != null &&
+                connectivityManager.getActiveNetworkInfo().isConnectedOrConnecting();
     }
 
     public void getTrendingGifs() {
