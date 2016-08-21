@@ -2,7 +2,6 @@ package com.roberterrera.gifsearch.model.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.roberterrera.gifsearch.R;
 import com.roberterrera.gifsearch.model.giphyapi.Images;
+import com.roberterrera.gifsearch.view.DetailActivity;
 
 import java.util.List;
 
@@ -58,14 +58,14 @@ public class SearchAdapter extends RecyclerView.Adapter<ViewHolder> {
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                /* Open the URL of the image */
+                /* Open the full-size of the image with option to share. */
                 try {
                     String website = searchResultsImages.get(pos).getOriginal().getUrl();
-                    Uri webpage = Uri.parse(website);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
-                    if (intent.resolveActivity(context.getPackageManager()) != null) {
-                        context.startActivity(intent);
-                    }
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("original", website);
+                    context.startActivity(intent);
+
                 } catch (NullPointerException e) {
                     Log.e("ONITEMCLICK", e.getMessage());
                 }
