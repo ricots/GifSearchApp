@@ -12,7 +12,7 @@ import com.roberterrera.gifsearch.R;
  */
 public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-    public ImageView gifStill;
+    public ImageView gifImage;
 
     public Context context;
     private ItemClickListener itemClickListener;
@@ -20,7 +20,7 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
     public ViewHolder(View itemView) {
         super(itemView);
 
-        gifStill = (ImageView) itemView.findViewById(R.id.imageView_gif);
+        gifImage = (ImageView) itemView.findViewById(R.id.imageView_gif);
 
         context = itemView.getContext();
         itemView.setOnClickListener(this);

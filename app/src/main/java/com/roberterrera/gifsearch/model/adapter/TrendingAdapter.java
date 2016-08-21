@@ -49,7 +49,7 @@ public class TrendingAdapter extends RecyclerView.Adapter<ViewHolder> {
                     .asGif()
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .placeholder(R.drawable.ic_burst_mode)
-                    .into(holder.gifStill);
+                    .into(holder.gifImage);
 
         } catch (NullPointerException e){
             Log.e("ONBINDVIEWHOLDER", e.getMessage());
