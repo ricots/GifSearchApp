@@ -12,4 +12,4 @@ Tapping on a gif opens the full size image in the user's default browser, for a 
  _git clone https://github.com/roberrera/GifSearchApp.git_
 3. The public Giphy key is located in the xml folder under giphykey.xml. Please replace this key with your production key if you decide to publicly release your version of the app.
 
-![](https://github.com/roberrera/GifSearchApp/blob/master/Screenshots-Videos/device-2016-08-19-191503.png)![](https://github.com/roberrera/GifSearchApp/blob/master/Screenshots-Videos/device-2016-08-19-191600.png)![](https://github.com/roberrera/GifSearchApp/blob/master/Screenshots-Videos/device-2016-08-19-191647.png)
+![](https://github.com/roberrera/GifSearchApp/blob/master/Screenshots-Videos/device-2016-08-19-191503.png)![](https://github.com/roberrera/GifSearchApp/blob/master/Screenshots-Videos/device-2016-08-19-191600.png)![](https://github.com/roberrera/GifSearchApp/blob/master/Screenshots-Videos/device-2016-08-19-191647.png)![](https://github.com/roberrera/GifSearchApp/blob/master/Screenshots-Videos/device-2016-08-21-113713.png)
